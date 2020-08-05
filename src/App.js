@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react";
 import logo from './logo.svg';
 import './App.css';
+import NavBarCustom from "./components/NavBarCustom";
 
 function App() {
   return (
     <div className="App">
+      <NavBarCustom></NavBarCustom>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
