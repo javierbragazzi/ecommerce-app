@@ -1,0 +1,34 @@
+  
+  .quantity {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+  .quantity input {
+    margin: 0px 5px 0px 5px;
+    -webkit-appearance: none;
+    border: none;
+    text-align: center;
+    width: 85px;
+    font-size: 16px;
+    color: #43484D;
+    font-weight: 300;
+    background-color:none;
+  }
+  
+  .quantity button{
+
+    cursor: pointer;
+  }
+
+  .send {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+
+
+  .send button{
+    width: 165px;
+    cursor: pointer;
+  }
