@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import {Button, CardDeck} from 'react-bootstrap';
+import React from 'react';
 
 import Item from '../../components/Item/Item';
 
+import './ItemList.css';
+
 function ItemList({products}){
-    
-//title, price, image, minStock, maxStock
+
  return <>
-            <CardDeck>
-                {products.map(p => <Item  title={p.title} price={p.price} image={p.image} minStock={p.minStock} maxStock={p.maxStock}/>)}
-            </CardDeck>
+ <div> </div>
+            <div className="divComponentContainer" margin='10px'>
+                    {products.map((p, idx) => <Item key={p.id} idItem={p.id} title={p.title} price={p.price} image={p.image} minStock={p.minStock} maxStock={p.maxStock} style={{display: "flex"}} />)}
+            </div>
         </>
 }
 
