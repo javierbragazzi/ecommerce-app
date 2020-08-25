@@ -1,18 +1,15 @@
 import React, {useState, useEffect} from 'react';
 
-import Saludo from '../../components/Saludo/Saludo';
-import CardDeckCustom from '../../components/CardDeckCustom/CardDeckCustom';
 import ItemList from '../../components/ItemList/ItemList';
 import SpinnerCustom from '../../components/SpinnerCustom/SpinnerCustom';
-import {Spinner} from 'react-bootstrap';
 
-//title, price, image, minStock, maxStock
 
 function getFromRemote() {
     return new Promise((res, rej) => {
       setTimeout(() => {
-        res([{ title: 'Notebook HP 250 G7', price:'90.000', image:'https://www.computershopping.com.ar/Images/Productos/HP-250-G7_Foto0.jpg', minStock:'1', maxStock:'8'},{ title: 'Notebook HP 240', price:'80.000', image:'https://www.computershopping.com.ar/Images/Productos/HP-250-G7_Foto0.jpg', minStock:'1', maxStock:'3'},{  title: 'Notebook HP 230 G8', price:'70.000', image:'https://www.computershopping.com.ar/Images/Productos/HP-250-G7_Foto0.jpg', minStock:'1', maxStock:'4'}]);
-      }, 9000);
+        res([{id: '1', title: 'HP 250 G7', price:'$ 90.000', image:'https://www.computershopping.com.ar/Images/Productos/HP-250-G7_Foto0.jpg', minStock:'1', maxStock:'8'},
+             {id: '2', title: 'Acer 800 Plus', price:'$ 70.000', image:'https://static.acer.com/up/Resource/Acer/Laptops/Aspire_1/images/20190430/Acer-Aspire-1-A115-31-main.png', minStock:'1', maxStock:'3'}]);
+      }, 1000);
     });
   }
 

@@ -1,28 +1,29 @@
 import React from 'react';
-import {Card} from 'react-bootstrap';
+import {Card, Button} from 'react-bootstrap';
 
-import ItemCount from '../../components/ItemCount/ItemCount';
+import './Item.css';
 
+function Item({key, idItem, title, price, image, minStock, maxStock}){
 
-function Item({title, price, image, minStock, maxStock}){
-
-    function onAddShow(quantity){
-        alert("Se agregaron " + quantity + " unidades al carrito");
-      }
+   // function onAddShow(quantity){
+  //      alert("Se agregaron " + quantity + " unidades al carrito");
+  //    } style={{width: "100px", height:"100px", margin: "0 auto"}}
 
     return <>
-                <Card style={{margin: '10px'}}>
-                    <Card.Img  variant="top" src={image}  />
+         <div className='divComponent'>
+                <Card style={{width: "250px", margin:"10px"}}>
+                    <Card.Img variant="top" src={image} style={{maxWidth: "100%", maxHeight: "100%", height:"auto", width:"auto", margin: "0 auto"}} />
                     <Card.Body>
-                    <Card.Title>{title}</Card.Title>
-                    <Card.Text>
-                       {price}
-                    </Card.Text>
+                        <Card.Title>{title}</Card.Title>
+                        <Card.Text>
+                        {price}
+                        </Card.Text>
                     </Card.Body>
-                    <Card.Footer>
-                        <ItemCount initial={1} min={minStock} max={maxStock} onAdd={onAddShow}/>
+                    <Card.Footer className="divFooterComponent" >
+                        <Button href={`itemDetail/${idItem}`} variant="primary" >Mas detalle</Button>
                     </Card.Footer>
                 </Card>
+                </div>
             </>
 }
 

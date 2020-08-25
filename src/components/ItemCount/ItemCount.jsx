@@ -20,15 +20,16 @@ function ItemCount ({initial, min, max, onAdd}){
   }
 
   return <>
-        <div class="quantity">
-            <Button class="minus-btn" variant="outline-primary" onClick={removeItem}>-</Button>
-            <input type="text" name="name" value={quantity}/>
-            <Button class="plus-btn" variant="outline-primary" onClick={addItem}>+</Button>
-        </div>
-        <div class="send">
-            <Button class="send-btn"variant="primary" onClick={() => onAdd(quantity)}>Agregar al carrito</Button>
-        </div>
-    </>
+
+            <div className="quantity">
+                <div className="quantity-div">Cantidad</div>
+                <Button className="minus-btn" variant="outline-primary" onClick={removeItem}>-</Button>
+                <input type="text" name="name" value={quantity} readOnly/>
+                <Button className="plus-btn" variant="outline-primary" onClick={addItem}>+</Button>
+            </div>
+      
+       
+        </>
 }
 
 export default ItemCount;

@@ -7,7 +7,7 @@ import CartIcon from '../CartIcon/CartIcon';
 function NavBar (){
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="#home">  
+            <Navbar.Brand href="/">  
                     <img
                         alt=""
                         src={logo}
@@ -20,7 +20,7 @@ function NavBar (){
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="#tecnologia">Tecnología</Nav.Link>
+                    <Nav.Link href="tecnologia">Tecnología</Nav.Link>
                     <Nav.Link href="#hogar">Hogar</Nav.Link>
                     <NavDropdown title="TV, Audio y Video" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#tvaudiovideo/3.1">TV</NavDropdown.Item>
@@ -29,7 +29,7 @@ function NavBar (){
                         <NavDropdown.Item href="#tvaudiovideo/3.3">Video</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
-                <Nav.Link href="#cart">
+                <Nav.Link href="/cart">
                     <CartIcon/>
                 </Nav.Link>
                 <Nav>
