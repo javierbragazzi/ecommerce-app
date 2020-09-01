@@ -3,7 +3,7 @@ import {Card, Button} from 'react-bootstrap';
 
 import './Item.css';
 
-function Item({key, idItem, title, price, image, minStock, maxStock}){
+function Item({idItem, title, price, image, minStock, maxStock}){
 
    // function onAddShow(quantity){
   //      alert("Se agregaron " + quantity + " unidades al carrito");

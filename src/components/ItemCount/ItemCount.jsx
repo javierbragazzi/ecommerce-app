@@ -3,19 +3,24 @@ import {Button} from 'react-bootstrap';
 import './ItemCount.css';
 
 
-function ItemCount ({initial, min, max, onAdd}){
+function ItemCount ({initial, min, max, onChangeQuantity}){
   const [quantity, setQuantity] = useState(initial);
 
   function addItem(){
     if(quantity < max)
-        setQuantity(quantity + 1);
-          
+        {
+          setQuantity(quantity + 1);          
+          onChangeQuantity(quantity + 1);
+        }
   }
 
   function removeItem(){
 
     if(quantity > min)
-        setQuantity(quantity - 1);  
+        {
+          setQuantity(quantity - 1);  
+          onChangeQuantity(quantity - 1); 
+        }
 
   }
 
