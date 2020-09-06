@@ -27,10 +27,10 @@ function ItemDetailContainer() {
 
     return (
         <>
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', heigth: '1000px' }} >
-             { loading &&  <SpinnerCustom  />}
-        </div>
-        <ItemDetail item={item}/>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', heigth: '1000px' }} >
+              { loading &&  <SpinnerCustom  />}
+          </div>
+          <ItemDetail item={item}/>
         
         </>
     )

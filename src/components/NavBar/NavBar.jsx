@@ -1,4 +1,5 @@
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import logo from '../../assets/logo.svg';
 
@@ -7,7 +8,7 @@ import CartIcon from '../CartIcon/CartIcon';
 function NavBar (){
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/">  
+            <Navbar.Brand as={Link} to="/">  
                     <img
                         alt=""
                         src={logo}
@@ -20,22 +21,21 @@ function NavBar (){
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="tecnologia">Tecnología</Nav.Link>
-                    <Nav.Link href="#hogar">Hogar</Nav.Link>
+                    <Nav.Link as={Link} to="tecnologia">Tecnología</Nav.Link>
+                    <Nav.Link as={Link} to="#hogar">Hogar</Nav.Link>
                     <NavDropdown title="TV, Audio y Video" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="#tvaudiovideo/3.1">TV</NavDropdown.Item>
-                        <NavDropdown.Item href="#tvaudiovideo/3.2">Audio</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#tvaudiovideo/3.1">TV</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#tvaudiovideo/3.2">Audio</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#tvaudiovideo/3.3">Video</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="#tvaudiovideo/3.3">Video</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
-                <Nav.Link href="/cart">
+                <Nav.Link as={Link} to="/cart">
                     <CartIcon/>
                 </Nav.Link>
-                <Nav>
-                    
-                    <Nav.Link href="#miCuenta">Mi cuenta</Nav.Link>
-
+            
+                <Nav>                    
+                    <Nav.Link as={Link} to="/miCuenta">Mi cuenta</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
