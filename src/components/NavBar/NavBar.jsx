@@ -21,14 +21,10 @@ function NavBar (){
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link as={Link} to="tecnologia">Tecnología</Nav.Link>
-                    <Nav.Link as={Link} to="#hogar">Hogar</Nav.Link>
-                    <NavDropdown title="TV, Audio y Video" id="collasible-nav-dropdown">
-                        <NavDropdown.Item as={Link} to="#tvaudiovideo/3.1">TV</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="#tvaudiovideo/3.2">Audio</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item as={Link} to="#tvaudiovideo/3.3">Video</NavDropdown.Item>
-                    </NavDropdown>
+                    <Nav.Link as={Link} to="/notebooks/cat-notebooks">Notebooks</Nav.Link>
+                    <Nav.Link as={Link} to="/monitores/cat-monitores">Monitores</Nav.Link>
+                    <Nav.Link as={Link} to="/">Todo</Nav.Link>
+     
                 </Nav>
                 <Nav.Link as={Link} to="/cart">
                     <CartIcon/>

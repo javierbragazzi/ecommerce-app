@@ -7,6 +7,7 @@ function ItemCount ({initial, min, max, onChangeQuantity}){
   const [quantity, setQuantity] = useState(initial);
 
   function addItem(){
+
     if(quantity < max)
         {
           setQuantity(quantity + 1);          
@@ -25,15 +26,12 @@ function ItemCount ({initial, min, max, onChangeQuantity}){
   }
 
   return <>
-
             <div className="quantity">
                 <div className="quantity-div">Cantidad</div>
-                <Button className="minus-btn" variant="outline-primary" onClick={removeItem}>-</Button>
+                <Button className="minus-btn" variant="outline-primary" onClick={() => removeItem()}>-</Button>
                 <input type="text" name="name" value={quantity} readOnly/>
-                <Button className="plus-btn" variant="outline-primary" onClick={addItem}>+</Button>
+                <Button className="plus-btn" variant="outline-primary" onClick={() => addItem()}>+</Button>
             </div>
-      
-       
         </>
 }
 
