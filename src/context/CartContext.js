@@ -7,8 +7,10 @@ export const useCartContext = () => useContext(CartContext);
 export function CartProvider({ defaultValue = [], children }) {
   const [cartItems, setCartItems] = useState(defaultValue);
   const [checkout, setCheckout] = useState(false);
-  //const [itemCount, setItemCount] = useState(0);
-  //const [total, setTotal] = useState(0);
+    
+  const itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
+
+  const total = cartItems.reduce((total, product) => total + product.price * product.quantity, 0);
   
     function addItemToCart(newItem) {
         const currentItemIndex = cartItems.findIndex(
@@ -32,12 +34,10 @@ export function CartProvider({ defaultValue = [], children }) {
         }
 
         console.log('cartItem: ' + JSON.stringify(newItem));
-        //sumItems();
     }
 
     function cleanCart() {
         setCartItems([]);
-        //sumItems();
     }
 
     function doCheckout(){
@@ -45,21 +45,61 @@ export function CartProvider({ defaultValue = [], children }) {
         cleanCart();
     }
 
-  //  function sumItems ({cartItems}) {
-    //    setItemCount(cartItems.reduce((total, product) => total + product.quantity, 0));
-    //    setTotal(cartItems.reduce((total, product) => total + product.price * product.quantity, 0).toFixed(2));
-   // }
-    
-    const itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
+    function increase(item){
 
-    const total = cartItems.reduce((total, product) => total + product.price * product.quantity, 0);
- 
-   // const quantity = cartItems.reduce((previousValue, cartItem) => {
-   //     return previousValue + cartItem.quantity;
-   // }, 0);
-  
+        const currentItemIndex = cartItems.findIndex(
+            (cartItem) => item.id === cartItem.id
+        );
+              
+        if (currentItemIndex !== -1) {
+            const c = [...cartItems];
+
+            if( c[currentItemIndex].quantity < item.stock){
+                c[currentItemIndex].quantity++;
+                setCartItems(c);
+            }
+            else{
+
+                console.log('No hay mas stock');
+            }
+
+        } else {
+            console.log('No se encontro el item para actualizar');
+        }
+
+    }
+
+    
+    function decrease(item){
+
+        const currentItemIndex = cartItems.findIndex(
+            (cartItem) => item.id === cartItem.id
+        );
+      
+        if (currentItemIndex !== -1) {
+            const c = [...cartItems];
+            c[currentItemIndex].quantity--;
+            setCartItems(c);
+
+            console.log('Quito un item');
+
+        } else {
+            console.log('No se encontro el item para actualizar');
+        }
+
+    }
+
+    function remove(item){
+
+        const c = [...cartItems.filter(cartItem => cartItem.id !== item.id)];
+        setCartItems(c);
+
+        console.log('Quito del carrito');
+
+    }
+
   return (
-    <CartContext.Provider value={{ cartItems, checkout, itemCount, total, doCheckout, addItemToCart, cleanCart }}>
+    <CartContext.Provider value={{ cartItems, checkout, itemCount, total, doCheckout, addItemToCart, cleanCart, increase, decrease, remove }}>
       {children}
     </CartContext.Provider>
   );

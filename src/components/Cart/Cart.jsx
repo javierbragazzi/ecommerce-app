@@ -1,13 +1,62 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import CurrencyFormat from 'react-currency-format';
 
+import SubmitForm from '../../components/SubmitForm/SubmitForm';
 import CartProducts from '../../components/CartProducts/CartProducts';
 import { CartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
+import { getFirestore } from '../../firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+
+
 
 function Cart(){
-    const { cartItems, checkout, itemCount, total, doCheckout, cleanCart  } = useContext(CartContext);
+    const [orderId, setOrderId] = useState();
+    const [checkout, setCheckout] = useState(false);
+
+    async function createOrder(cartItems, total){
+        const db = getFirestore();
+        const orders = db.collection("orders");
+    
+    
+        const userInfo = {
+            name:'Javier Bragazzi',
+            phone: '1122223333',
+            email:'javierr87@gmail.com',
+        }
+        
+        const newOrder = { 
+            buyer: userInfo,
+            items: cartItems,
+            date: firebase.firestore.FieldValue.serverTimestamp(),
+            total: total,
+        };
+    
+    /*     orders.add(newOrder).then(({ id }) => {
+            setOrderId(id); //SUCCESS
+        }).catch(err => {
+            setError(err); //ERROR
+        }).finally(() => {
+            //setLoading(false);
+        }); */
+    
+        debugger;
+    
+        try {
+		    const { id } = await orders.add(newOrder);
+            setOrderId(id);
+            setCheckout(true);
+            cleanCart();
+            console.log('Id de orden: ' + orderId);
+        }catch(err) {
+            console.log('Error: ' + err);
+        }
+    
+    }
+
+    const { cartItems, itemCount, total, doCheckout, cleanCart  } = useContext(CartContext);
 
     return <>
             <div >
@@ -35,6 +84,7 @@ function Cart(){
                         { checkout && 
                             <div className="p-3 text-center text-success">
                                 <p>¡Compra exitosa!</p>
+                                <p>Tu número de orden es: {orderId}</p>
                                  <Link to="/" className="btn btn-outline-success btn-sm">Comprar más</Link>
                             </div>
                         }
@@ -51,7 +101,7 @@ function Cart(){
                                 </h3>
                                 <hr className="my-4"/>
                                 <div className="text-center">
-                                    <Button variant="success" onClick={doCheckout} >Finalizar</Button> {'       '}
+                                    <Button variant="success" onClick={() => createOrder(cartItems, total, cleanCart)} >Finalizar</Button> {'       '}
                                     <Button variant="danger" onClick={cleanCart} >Vaciar</Button>
                 
                                 </div>

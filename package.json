@@ -11,6 +11,8 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/react": "^16.9.49",
     "bootstrap": "^4.5.1",
+    "firebase": "^7.19.1",
+    "formik": "^2.1.5",
     "get-user-locale": "^1.4.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -20,7 +22,8 @@
     "react-intl-number-format": "^1.1.1",
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^3.4.3",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "react-scripts start",

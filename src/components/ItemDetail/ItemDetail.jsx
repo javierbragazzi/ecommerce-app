@@ -9,16 +9,7 @@ import './ItemDetail.css';
 
 import ItemCount from '../../components/ItemCount/ItemCount';
 import { CartContext } from '../../context/CartContext';
-
-
-const GetItem = (id) => {  
-    const item = [{ id: '1', title: 'HP', subtitle: "Modelo: 250 G7", category:"Notebooks", description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem nam pariatur voluptate perferendis, asperiores aspernatur! Porro similique consequatur, nobis soluta minima, quasi laboriosam hic cupiditate perferendis esse numquam magni." , price:90000.99, image:'https://www.computershopping.com.ar/Images/Productos/HP-250-G7_Foto0.jpg', minStock:'1', maxStock:'8', quantity: 0},
-                  { id: '2', title: 'Acer', subtitle: "Modelo: 800 Plus", category:"Notebooks", description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem nam pariatur voluptate perferendis, asperiores aspernatur! Porro similique consequatur, nobis soluta minima, quasi laboriosam hic cupiditate perferendis esse numquam magni." , price:70000.02, image:'https://static.acer.com/up/Resource/Acer/Laptops/Aspire_1/images/20190430/Acer-Aspire-1-A115-31-main.png', minStock:'1', maxStock:'3', quantity: 0}]
-                  .find(x => x.id === id);
-
-    return item;
-}
-
+import { getFirestore } from '../../firebase';
 
 function ItemDetail() {
     const { idItem } = useParams();
@@ -27,9 +18,24 @@ function ItemDetail() {
     const { addItemToCart } = useContext(CartContext);
 
     useEffect(() => {
-        var newItem = GetItem(idItem);
-        newItem.quantity = quantityToBuy;
-        setItem(newItem);
+        const db = getFirestore();
+
+        const itemCollection = db.collection("items");
+        const item = itemCollection.doc(idItem);
+                
+        item.get().then((doc) => {
+            if(!doc.exists){
+                console.log("No se encontro el item con id: " + idItem);
+                return;
+            }
+            console.log("Se encontró el item!");
+            setItem({id: doc.id, quantity: quantityToBuy, ...doc.data()});
+        }).catch((error) => {
+            console.log("Error seraching items. Error: ", error);
+        }).finally(() => {
+
+        });
+
         return () => {
         }
     },[idItem]);
@@ -60,8 +66,7 @@ function ItemDetail() {
                         <div className="card">
                             <div className="card__title">
                                 <div className="icon">
-                                <Link to="/"> <FontAwesomeIcon icon={faArrowAltCircleLeft} /> </Link>
-                                
+                                    <Link to="/"> <FontAwesomeIcon icon={faArrowAltCircleLeft} /> </Link>                                
                                 </div>
                                 <h3>{item.category}</h3>
                             </div>
@@ -81,7 +86,7 @@ function ItemDetail() {
                                     <p>{item.description}</p>
                                 </div>
                                 <span className="stock"><i className="fa fa-pen"></i>En stock</span>
-                                <span className="stock"><ItemCount initial={quantityToBuy} min={item.minStock} max={item.maxStock} onChangeQuantity={handleChangeQuantity}></ItemCount></span>
+                                <span className="stock"><ItemCount initial={quantityToBuy} min={1} max={item.stock} onChangeQuantity={handleChangeQuantity}></ItemCount></span>
                                 </div>
                             </div>
                             <div className="card__footer">

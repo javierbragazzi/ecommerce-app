@@ -16,13 +16,19 @@ function App() {
           <NavBar/>
           <Switch>
             <Route exact path='/'>
-              <Home title='¡Hola!' greetings='Bienvenido nuevamente :)'/>
+              <Home />
             </Route>
             <Route path='/cart'>
               <CartContainer />
             </Route>
             <Route path='/itemDetail/:idItem'>
               <ItemDetail />
+            </Route>
+            <Route exact path='/notebooks/:categoryId'>
+              <Home />
+            </Route>
+            <Route exact path='/monitores/:categoryId'>
+              <Home />
             </Route>
           </Switch>
         </BrowserRouter>
