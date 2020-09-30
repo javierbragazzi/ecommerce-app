@@ -5,51 +5,40 @@ import { PlusCircleIcon, MinusCircleIcon, TrashIcon } from '../../components/Ico
 
 function CartItem ({product}) {
     const { increase, decrease, remove } = useContext(CartContext);
-
-    //{ id: '1', title: 'HP', subtitle: "Modelo: 250 G7", category:"Notebooks", description:"Lorem" , price:'$ 90.000', image:'', minStock:'1', maxStock:'8', quantity: '0'},
-    return ( 
-        <div className="row no-gutters py-2">
-            <div className="col-sm-2 p-2">
-                <img
-                alt={product.title + product.subtitle}  
-                style={{margin: "0 auto", maxHeight: "50px"}} 
-                src={product.image} className="img-fluid d-block"/>
-            </div>
-            <div className="col-sm-4 p-2">
-                <h5 className="mb-1">{product.title + ' ' + product.subtitle} </h5>
-                <p className="mb-1">Precio: <CurrencyFormat  value={product.price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$ '} />  </p>
-                
-            </div>
-            <div className="col-sm-2 p-2 text-center ">
-                 <p className="mb-0">Cant.: {product.quantity}</p>
-            </div>
-            <div className="col-sm-4 p-2 text-right">
-                 <button 
-                 onClick={() => increase(product)}
-                 className="btn btn-primary btn-sm mr-2 mb-1">
-                     <PlusCircleIcon width={"20px"}/>
-                 </button>
-
-                 {
-                     product.quantity > 1 &&
-                     <button
-                    onClick={() => decrease(product)}
-                    className="btn btn-danger btn-sm mb-1">
-                        <MinusCircleIcon width={"20px"}/>
+   return ( 
+            <div className="row no-gutters py-2">
+                <div className="col-sm-2 p-2">
+                    <img
+                    alt={product.title + product.subtitle}  
+                    style={{margin: "0 auto", maxHeight: "50px"}} 
+                    src={product.image} className="img-fluid d-block"/>
+                </div>
+                <div className="col-sm-4 p-2">
+                    <h5 className="mb-1">{product.title + ' ' + product.subtitle} </h5>
+                    <p className="mb-1">Precio: <CurrencyFormat  value={product.price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$ '} />  </p>
+                    
+                </div>
+                <div className="col-sm-2 p-2 text-center ">
+                    <h6 className="mb-0">Cant.: {product.quantity}</h6>
+                </div>
+                <div className="col-sm-4 p-2 text-right">
+                    <button onClick={() => increase(product)} className="btn btn-primary btn-sm mr-2 mb-1">
+                        <PlusCircleIcon width={"20px"}/>
                     </button>
-                 }
-
-                {
-                     product.quantity === 1 &&
-                     <button
-                    onClick={() => remove(product)}
-                    className="btn btn-danger btn-sm mb-1">
-                        <TrashIcon width={"20px"}/>
-                    </button>
-                 }
-                 
+                    {
+                        product.quantity > 1 &&
+                            <button onClick={() => decrease(product)} className="btn btn-danger btn-sm mb-1">
+                                <MinusCircleIcon width={"20px"}/>
+                            </button>
+                    }
+                    {
+                        product.quantity === 1 &&
+                            <button  onClick={() => remove(product)} className="btn btn-danger btn-sm mb-1">
+                                <TrashIcon width={"20px"}/>
+                            </button>
+                    }                 
+                </div>
             </div>
-        </div>
      );
 }
  

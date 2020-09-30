@@ -1,62 +1,43 @@
-import React, { useContext, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useContext, useState, useEffect } from 'react';
+import {Button, Collapse} from 'react-bootstrap';
 import CurrencyFormat from 'react-currency-format';
 
+import SpinnerCustom from '../../components/SpinnerCustom/SpinnerCustom';
 import SubmitForm from '../../components/SubmitForm/SubmitForm';
 import CartProducts from '../../components/CartProducts/CartProducts';
 import { CartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
-import { getFirestore } from '../../firebase';
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
-
 
 
 function Cart(){
-    const [orderId, setOrderId] = useState();
-    const [checkout, setCheckout] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [buttonText, setButtonText] = useState("Comprar");
+    const [buttonVariant, setButtonVariant] = useState("success");
+    const [loading, setLoading] = useState(true);
 
-    async function createOrder(cartItems, total){
-        const db = getFirestore();
-        const orders = db.collection("orders");
-    
-    
-        const userInfo = {
-            name:'Javier Bragazzi',
-            phone: '1122223333',
-            email:'javierr87@gmail.com',
+    const { cartItems, itemCount, total, checkout, orderId, cleanCart, resetCheckout  } = useContext(CartContext);
+
+    useEffect(() => {
+            resetCheckout();
+            setLoading(false);
+    },[])
+
+    function buy()
+    {
+
+        setOpen(!open);
+
+        if(open === false){
+            setButtonText("Cancelar");
+            setButtonVariant("warning");
         }
-        
-        const newOrder = { 
-            buyer: userInfo,
-            items: cartItems,
-            date: firebase.firestore.FieldValue.serverTimestamp(),
-            total: total,
-        };
-    
-    /*     orders.add(newOrder).then(({ id }) => {
-            setOrderId(id); //SUCCESS
-        }).catch(err => {
-            setError(err); //ERROR
-        }).finally(() => {
-            //setLoading(false);
-        }); */
-    
-        debugger;
-    
-        try {
-		    const { id } = await orders.add(newOrder);
-            setOrderId(id);
-            setCheckout(true);
-            cleanCart();
-            console.log('Id de orden: ' + orderId);
-        }catch(err) {
-            console.log('Error: ' + err);
+        else{
+            setButtonText("Comprar");
+            setButtonVariant("success");
         }
-    
     }
 
-    const { cartItems, itemCount, total, doCheckout, cleanCart  } = useContext(CartContext);
+
 
     return <>
             <div >
@@ -64,30 +45,40 @@ function Cart(){
                     <h1>Carrito</h1>
                     <p>Aquí veras los productos seleccionados para la compra</p>
                 </div>
-
+                { loading &&  <SpinnerCustom  /> }
                 <div className="row no-gutters justify-content-center">
                     <div className="col-sm-9 p-3">
                         {
                             cartItems.length > 0 ?
-                            <CartProducts/> :
                             <div>
-                                <div className="p-3 text-center text-muted">
-                                    Tu carrito está vacío
+                            <CartProducts/> 
+                            <Collapse in={open}  >
+                                <div style={{margin: "20px 0px 0px 0px"}}>
+                    
+                                    <SubmitForm/>
                                 </div>
-                                <div className="p-3 text-center text-muted">
-                                <Link to="/" className="btn btn-outline-success btn-sm">Ir a comprar</Link>
-                                </div>
-                            </div>    
-
-                        }
-
-                        { checkout && 
-                            <div className="p-3 text-center text-success">
-                                <p>¡Compra exitosa!</p>
-                                <p>Tu número de orden es: {orderId}</p>
-                                 <Link to="/" className="btn btn-outline-success btn-sm">Comprar más</Link>
+                            </Collapse>
                             </div>
+                            :
+                            !checkout ?
+                                <div>
+                                    <div className="p-3 text-center text-muted">
+                                        Tu carrito está vacío
+                                    </div>
+                                    <div className="p-3 text-center text-muted">
+                                    <Link to="/" className="btn btn-outline-success btn-sm">Ir a comprar</Link>
+                                    </div>
+                                </div>
+                                :
+                                <div className="p-3 text-center text-success">
+                                <p>¡Compra exitosa!</p>
+                                <p>Tu número de orden es: {orderId}</p>                          
+                                 <Link to="/" className="btn btn-outline-success btn-sm"  >Comprar más</Link>
+                                </div>
+
                         }
+
+                      
                     </div>
                     {
                         cartItems.length > 0 && 
@@ -101,7 +92,7 @@ function Cart(){
                                 </h3>
                                 <hr className="my-4"/>
                                 <div className="text-center">
-                                    <Button variant="success" onClick={() => createOrder(cartItems, total, cleanCart)} >Finalizar</Button> {'       '}
+                                    <Button variant={buttonVariant} onClick={() => buy()}  >{buttonText}</Button> {'       '}
                                     <Button variant="danger" onClick={cleanCart} >Vaciar</Button>
                 
                                 </div>
@@ -109,8 +100,13 @@ function Cart(){
                             </div>
                         </div>
                     }
+
+              
+                   
                     
                 </div>
+
+   
             </div>
     </>
 }

@@ -7,6 +7,7 @@ export const useCartContext = () => useContext(CartContext);
 export function CartProvider({ defaultValue = [], children }) {
   const [cartItems, setCartItems] = useState(defaultValue);
   const [checkout, setCheckout] = useState(false);
+  const [orderId, setOrderId] = useState();
     
   const itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
 
@@ -43,6 +44,15 @@ export function CartProvider({ defaultValue = [], children }) {
     function doCheckout(){
         setCheckout(true);
         cleanCart();
+    }
+
+    function resetCheckout(){
+        setCheckout(false);
+    }
+
+    function updateOrderId(id){
+        debugger;
+        setOrderId(id);
     }
 
     function increase(item){
@@ -99,7 +109,7 @@ export function CartProvider({ defaultValue = [], children }) {
     }
 
   return (
-    <CartContext.Provider value={{ cartItems, checkout, itemCount, total, doCheckout, addItemToCart, cleanCart, increase, decrease, remove }}>
+    <CartContext.Provider value={{ cartItems, checkout, itemCount, total, orderId, updateOrderId, doCheckout, addItemToCart, cleanCart, increase, decrease, remove, resetCheckout }}>
       {children}
     </CartContext.Provider>
   );

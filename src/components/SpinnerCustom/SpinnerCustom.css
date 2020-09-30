@@ -1,0 +1,16 @@
+.container-spinner {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .child-spinner {
+    width: 50px;
+    height: 50px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
