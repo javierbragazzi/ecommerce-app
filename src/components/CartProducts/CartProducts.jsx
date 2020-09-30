@@ -9,7 +9,7 @@ function CartProducts () {
 
     return ( 
         <div >
-            <div className="card card-body border-0">
+            <div className="card card-body border-1">
 
                 {
                     cartItems.map(product =>  <CartItem key={product.id} product={product}/>)
