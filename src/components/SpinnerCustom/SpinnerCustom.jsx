@@ -2,19 +2,25 @@
 import {Spinner, Button} from 'react-bootstrap';
 import React from 'react';
 
+import './SpinnerCustom.css';
+
 function SpinnerCustom (){
     return (
                 <>
-                <Button variant="primary" style={{margin: '250px 10px 10px 10px'}} disabled >
-                    <Spinner
-                    as="span"
-                    animation="grow"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    /> {' '}
-                    Loading...
-                </Button>
+
+                    <div className="container-spinner">
+                        <div className="child-spinner">
+                            <Spinner style={{width:"80px", height:"80px"}}
+                                    as="span"
+                                    animation="grow"
+                                    size="xl"
+                                    role="status"
+                                    aria-hidden="true"
+                                    variant="dark"
+                             />  
+                        </div>
+                    </div>
+
                 </>
     );
 
